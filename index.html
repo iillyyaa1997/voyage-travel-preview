@@ -1,0 +1,248 @@
+<!doctype html><html lang="ru"><head>
+<meta name="viewport" content="width=1440">
+<meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><title>Voyage Travel — прототип главной</title>
+<style>
+  :root{
+    --bg:#fff8f4; --surf:#ffffff; --text:#3a1f2e; --mut:#8a6b73; --prim:#e8633f; --primT:#fff; --acc:#c9a24a;
+    --grad:linear-gradient(135deg,#ffb36b 0%,#ff6f61 42%,#7b3b6b 100%);
+    --serif:'Palatino Linotype',Palatino,Georgia,serif; --sans:'Helvetica Neue',Arial,sans-serif; --r:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1440px;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.brand{font-family:var(--serif);font-weight:700}
+  section,.band{width:1440px}
+  .ph{color:#b8860b;background:#fff6db;border:1px dashed #d9b24a;border-radius:6px;padding:0 6px;font-size:.82em;font-family:var(--sans)}
+  /* NAV */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 64px;background:#fff;border-bottom:1px solid #f0e3dc;position:relative;z-index:5}
+  .brand{font-size:40px;color:var(--text);letter-spacing:.3px}
+  .brand small{display:block;font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--mut);margin-top:2px}
+  .nav .links{display:flex;gap:26px}
+  .nav .links a{color:var(--mut);text-decoration:none;font-size:15px}
+  .nav .phone{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--prim)}
+  .nav .phone small{display:block;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--mut)}
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding:58px 64px;background:linear-gradient(rgba(0,0,0,.04),rgba(0,0,0,.06)),#fff}
+  .hbadge{display:inline-block;background:#fdeee7;color:var(--prim);font-weight:700;font-size:14px;padding:8px 16px;border-radius:30px}
+  .hero h1{font-size:54px;line-height:1.05;margin:16px 0 0}
+  .hero .sub{font-size:20px;color:var(--mut);margin:18px 0 0;max-width:520px}
+  .hctas{display:flex;gap:14px;margin-top:26px}
+  .btn1{background:var(--prim);color:var(--primT);border:none;padding:16px 30px;border-radius:var(--r);font-size:17px;font-weight:700;box-shadow:0 12px 26px rgba(232,99,63,.32)}
+  .btn2{background:transparent;color:var(--prim);border:2px solid var(--prim);padding:14px 26px;border-radius:var(--r);font-size:17px;font-weight:700}
+  .hero .hv{position:relative;height:400px;background:var(--grad);border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 24px 60px rgba(123,59,107,.3)}
+  .hv .em{font-size:180px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.25))}
+  .hv .tag{position:absolute;bottom:22px;left:22px;background:#fff;padding:14px 18px;border-radius:14px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+  .hv .tag b{display:block;color:var(--prim);font-size:18px;margin-top:4px}
+  /* SEARCH/QUIZ bar */
+  .qbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 64px;margin-top:-28px;background:#fff;border-radius:var(--r);box-shadow:0 20px 50px rgba(123,59,107,.16);padding:18px 26px;position:relative;z-index:4}
+  .qbar .qt{font-family:var(--serif);font-size:20px;font-weight:700}
+  .qbar .qd{color:var(--mut);font-size:14px}
+  .qbar .qcta{background:var(--acc);color:#3a1f2e;font-weight:700;padding:14px 24px;border-radius:30px}
+  /* TRUST strip */
+  .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:46px 64px 10px}
+  .ti{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);padding:22px;text-align:center}
+  .ti .n{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--prim)}
+  .ti .l{color:var(--mut);font-size:14px;margin-top:4px}
+  /* generic section head */
+  .sh{display:flex;align-items:baseline;justify-content:space-between;margin:0 64px 24px}
+  .sh h2{font-size:36px}
+  .sh .more{color:var(--prim);font-weight:700;text-decoration:none}
+  .pad{padding:56px 0 0}
+  /* DEST */
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin:0 64px}
+  .card{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);overflow:hidden}
+  .card .img{height:110px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:52px}
+  .card .b{padding:14px}
+  .card .nm{font-family:var(--serif);font-weight:700;font-size:18px}
+  .card .pr{color:var(--prim);font-weight:700;margin-top:4px;font-size:14px}
+  /* OFFERS */
+  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:0 64px}
+  .offer{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);padding:0;overflow:hidden}
+  .offer .top{background:var(--grad);color:#fff;padding:16px 18px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+  .offer .hot{background:#ff4d4f;font-size:12px;padding:4px 9px;border-radius:20px}
+  .offer .body{padding:16px 18px}
+  .offer .price{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--prim)}
+  .offer .meta{color:var(--mut);font-size:14px;margin-top:6px}
+  /* WHY */
+  .why{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:0 64px}
+  .why .c{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);padding:24px}
+  .why .ic{font-size:34px}
+  .why h3{font-size:19px;margin:12px 0 6px}
+  .why p{color:var(--mut);font-size:15px;line-height:1.5}
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin:0 64px}
+  .step{text-align:center;padding:10px}
+  .step .num{width:46px;height:46px;border-radius:50%;background:var(--prim);color:#fff;font-family:var(--serif);font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  .step .t{font-weight:700;margin-bottom:6px}
+  .step .d{color:var(--mut);font-size:14px}
+  /* TEAM */
+  .team{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin:0 64px}
+  .tc{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);padding:22px 14px;text-align:center}
+  .tc .av{font-size:64px}
+  .tc .nm{font-family:var(--serif);font-weight:700;font-size:19px;margin-top:6px}
+  .tc .sp{color:var(--mut);font-size:13px;margin-top:4px}
+  .tc .ch{display:flex;gap:6px;justify-content:center;margin-top:12px}
+  .chip{padding:6px 10px;border-radius:20px;font-size:12px;font-weight:700;color:#fff}
+  .wa{background:#25d366;color:#053} .tg{background:#2aabee} .vb{background:#7360f2}
+  .tc .ph2{margin-top:10px;color:var(--prim);font-weight:700;font-size:13px}
+  /* REVIEWS */
+  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:0 64px}
+  .rev{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);padding:24px}
+  .stars{color:#f5a623;font-size:20px;letter-spacing:2px}
+  .rev p{margin-top:10px;line-height:1.55}
+  .rev .who{color:var(--mut);font-weight:700;margin-top:12px}
+  .gis{display:inline-block;margin:22px 64px 0;background:var(--prim);color:#fff;padding:12px 22px;border-radius:var(--r);font-weight:700;text-decoration:none}
+  /* FAQ */
+  .faq{margin:0 64px;display:grid;grid-template-columns:1fr 1fr;gap:16px 30px}
+  .fq{background:#fff;border:1px solid #f0e3dc;border-radius:var(--r);padding:18px 20px}
+  .fq .q{font-weight:700;font-family:var(--serif);font-size:17px}
+  .fq .a{color:var(--mut);font-size:14px;margin-top:8px;line-height:1.55}
+  /* CTA band */
+  .ctaband{margin:64px 64px 0;background:linear-gradient(rgba(0,0,0,.28),rgba(0,0,0,.28)),var(--grad);border-radius:18px;padding:46px;color:#fff;display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
+  .ctaband h2{font-size:32px;color:#fff}
+  .ctaband p{color:rgba(255,255,255,.92);margin-top:10px}
+  .form{background:rgba(255,255,255,.95);border-radius:14px;padding:22px;color:var(--text)}
+  .form .fld{background:#fff;border:1px solid #e7d8d0;border-radius:10px;padding:12px 14px;color:var(--mut);margin-bottom:10px;font-size:15px}
+  .form .sub{background:var(--prim);color:#fff;text-align:center;padding:13px;border-radius:10px;font-weight:700}
+  .form .cons{font-size:11px;color:var(--mut);margin-top:8px}
+  /* CONTACTS */
+  .contacts{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:0 64px}
+  .cinfo div{margin-bottom:10px;font-size:16px}
+  .cinfo .lbl{color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:1px}
+  .map{background:#efe6df;border-radius:var(--r);min-height:240px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:15px}
+  /* FOOTER */
+  footer{margin-top:64px;background:#2e1b26;color:#d9c7cf;padding:36px 64px}
+  footer .row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  footer .brand{color:#fff;font-size:26px}
+  footer a{color:#e8b3a0;text-decoration:none}
+  footer .legal{font-size:13px;line-height:1.7;margin-top:14px;color:#b79aa6}
+</style></head>
+<body>
+
+<nav class="nav">
+  <div class="brand">✈ Voyage Travel<small>Турагентство · Новокузнецк</small></div>
+  <div class="links"><a>Направления</a><a>Горящие туры</a><a>О нас</a><a>Отзывы</a><a>Контакты</a></div>
+  <div class="phone">8-917-877-36-58<small>388-707 · ежедневно</small></div>
+</nav>
+
+<section class="hero">
+  <div>
+    <span class="hbadge">🏆 В реестре турагентов · <span class="ph">N</span> лет в Новокузнецке</span>
+    <h1>Подберём тур вашей мечты</h1>
+    <div class="sub">Отдых в любой точке мира. Поможем выбрать, сэкономить и оформить — бесплатно и под ключ.</div>
+    <div class="hctas"><button class="btn1">Подобрать тур</button><button class="btn2">Рассчитать бесплатно</button></div>
+  </div>
+  <div class="hv"><div class="em">🏖️</div><div class="tag">Турция, всё включено<b>от <span class="ph">65 000</span> ₽</b></div></div>
+</section>
+
+<div class="qbar">
+  <div><div class="qt">🎯 Не знаете, куда поехать?</div><div class="qd">Пройдите квиз за 1 минуту — пришлём 3 лучших тура под ваш бюджет</div></div>
+  <div class="qcta">Пройти квиз →</div>
+</div>
+
+<section class="trust pad" style="padding-top:46px">
+  <div class="ti"><div class="n">✓ ЕФРТ</div><div class="l">официально, в реестре турагентов</div></div>
+  <div class="ti"><div class="n">Coral · Anex · Pegas · TUI</div><div class="l">надёжные туроператоры</div></div>
+  <div class="ti"><div class="n"><span class="ph">1000</span>+</div><div class="l">довольных туристов</div></div>
+  <div class="ti"><div class="n">0 ₽</div><div class="l">подбор тура — бесплатно</div></div>
+</section>
+
+<div class="pad"><div class="sh"><h2>Популярные направления</h2><a class="more">Все направления →</a></div>
+  <div class="cards">
+    <div class="card"><div class="img">🕌</div><div class="b"><div class="nm">Турция</div><div class="pr">от <span class="ph">65 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🏜️</div><div class="b"><div class="nm">Египет</div><div class="pr">от <span class="ph">70 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🏙️</div><div class="b"><div class="nm">ОАЭ</div><div class="pr">от <span class="ph">89 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🌴</div><div class="b"><div class="nm">Таиланд</div><div class="pr">от <span class="ph">110 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🏝️</div><div class="b"><div class="nm">Мальдивы</div><div class="pr">от <span class="ph">180 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🛕</div><div class="b"><div class="nm">Вьетнам</div><div class="pr">от <span class="ph">100 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">⛰️</div><div class="b"><div class="nm">Грузия</div><div class="pr">от <span class="ph">45 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🌊</div><div class="b"><div class="nm">Абхазия</div><div class="pr">от <span class="ph">30 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🏔️</div><div class="b"><div class="nm">Сочи</div><div class="pr">от <span class="ph">35 000</span> ₽</div></div></div>
+    <div class="card"><div class="img">🍵</div><div class="b"><div class="nm">Шри-Ланка</div><div class="pr">от <span class="ph">120 000</span> ₽</div></div></div>
+  </div>
+</div>
+
+<div class="pad"><div class="sh"><h2>🔥 Горящие предложения</h2><span class="more ph">обновляет Юля</span></div>
+  <div class="offers">
+    <div class="offer"><div class="top">Турция, Анталья <span class="hot">−30%</span></div><div class="body"><div class="price">от <span class="ph">59 000</span> ₽</div><div class="meta">10 ночей · всё включено · вылет <span class="ph">в июле</span></div></div></div>
+    <div class="offer"><div class="top">Египет, Хургада <span class="hot">горящий</span></div><div class="body"><div class="price">от <span class="ph">64 000</span> ₽</div><div class="meta">7 ночей · 5★ · вылет <span class="ph">скоро</span></div></div></div>
+    <div class="offer"><div class="top">ОАЭ, Дубай <span class="hot">−25%</span></div><div class="body"><div class="price">от <span class="ph">82 000</span> ₽</div><div class="meta">6 ночей · завтраки · вылет <span class="ph">в августе</span></div></div></div>
+  </div>
+</div>
+
+<div class="pad"><div class="sh"><h2>Почему с нами выгодно</h2></div>
+  <div class="why">
+    <div class="c"><div class="ic">💰</div><h3>Лучшая цена</h3><p>Сравниваем десятки туроператоров и находим выгодное предложение под ваш бюджет.</p></div>
+    <div class="c"><div class="ic">🛡️</div><h3>Юридическая чистота</h3><p>Официальный договор, туроператоры с финансовыми гарантиями по закону.</p></div>
+    <div class="c"><div class="ic">🎁</div><h3>Бесплатный подбор</h3><p>Подбор и консультация — бесплатно. Платите только за саму поездку.</p></div>
+    <div class="c"><div class="ic">👩‍💼</div><h3>Личный менеджер</h3><p>С вами работает конкретный человек — от выбора до возвращения домой.</p></div>
+  </div>
+</div>
+
+<div class="pad"><div class="sh"><h2>Как мы работаем</h2></div>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div class="t">Заявка</div><div class="d">Форма, квиз или мессенджер</div></div>
+    <div class="step"><div class="num">2</div><div class="t">Подбор</div><div class="d">Сравниваем и присылаем лучшее</div></div>
+    <div class="step"><div class="num">3</div><div class="t">Выбор</div><div class="d">Уточняем отель, даты, детали</div></div>
+    <div class="step"><div class="num">4</div><div class="t">Оформление</div><div class="d">Договор, оплата, страховка</div></div>
+    <div class="step"><div class="num">5</div><div class="t">Отдых</div><div class="d">Мы на связи всю поездку</div></div>
+  </div>
+</div>
+
+<div class="pad"><div class="sh"><h2>Наша команда</h2><span class="more">Подберём тур лично для вас</span></div>
+  <div class="team">
+    <div class="tc"><div class="av">👩🏻‍💼</div><div class="nm">Ландыш</div><div class="sp">Турция · Египет</div><div class="ch"><span class="chip wa">WA</span><span class="chip tg">TG</span></div><div class="ph2">8-917-877-36-58</div></div>
+    <div class="tc"><div class="av">👩🏼‍💼</div><div class="nm">Флорида</div><div class="sp">ОАЭ · Мальдивы</div><div class="ch"><span class="chip wa">WA</span><span class="chip tg">TG</span></div><div class="ph2">8-917-877-36-58</div></div>
+    <div class="tc"><div class="av">👩🏽‍💼</div><div class="nm">Рузиля</div><div class="sp">Таиланд · Вьетнам</div><div class="ch"><span class="chip wa">WA</span><span class="chip tg">TG</span></div><div class="ph2">8-917-877-36-58</div></div>
+    <div class="tc"><div class="av">🧑🏻‍💼</div><div class="nm">Елена</div><div class="sp">Европа · круизы</div><div class="ch"><span class="chip wa">WA</span><span class="chip tg">TG</span></div><div class="ph2">8-917-877-36-58</div></div>
+    <div class="tc"><div class="av">👩🏻</div><div class="nm">Камиля</div><div class="sp">Россия · Абхазия</div><div class="ch"><span class="chip wa">WA</span><span class="chip tg">TG</span></div><div class="ph2">8-917-877-36-58</div></div>
+  </div>
+  <div style="text-align:center;color:#8a6b73;font-size:13px;margin-top:10px">Специализации и фото — <span class="ph">уточнить у Юли</span>; телефон у всех общий</div>
+</div>
+
+<div class="pad"><div class="sh"><h2>Отзывы туристов</h2></div>
+  <div class="revs">
+    <div class="rev"><div class="stars">★★★★★</div><p>«Подобрали отличный тур в Турцию, всё чётко и по выгодной цене. Спасибо за заботу!»</p><div class="who">— Алина <span class="ph">пример</span></div></div>
+    <div class="rev"><div class="stars">★★★★★</div><p>«Летали в ОАЭ всей семьёй. Помогли с визой и трансфером, всё прошло идеально.»</p><div class="who">— Сергей <span class="ph">пример</span></div></div>
+    <div class="rev"><div class="stars">★★★★★</div><p>«Не первый раз обращаюсь — всегда находят варианты под мой бюджет. Рекомендую!»</p><div class="who">— Марина <span class="ph">пример</span></div></div>
+  </div>
+  <a class="gis">Все отзывы на 2ГИС → <span class="ph">ссылка</span></a>
+</div>
+
+<div class="pad"><div class="sh"><h2>Частые вопросы</h2></div>
+  <div class="faq">
+    <div class="fq"><div class="q">Сколько стоит ваша помощь?</div><div class="a">Подбор и консультация — бесплатно. Цена тура для вас не выше, чем напрямую у оператора.</div></div>
+    <div class="fq"><div class="q">Это безопасно?</div><div class="a">Да. Работаем по официальному договору, туры формируют операторы с финансовыми гарантиями.</div></div>
+    <div class="fq"><div class="q">Откуда вылеты?</div><div class="a">Из Новокузнецка вылеты ограничены, часто удобнее из Новосибирска — подскажем оптимальный вариант. <span class="ph">подтвердить</span></div></div>
+    <div class="fq"><div class="q">Можно оплатить частями?</div><div class="a">Да, доступны разные способы оплаты. <span class="ph">рассрочка — уточнить</span></div></div>
+    <div class="fq"><div class="q">Оформляете визы и страховку?</div><div class="a">Да, помогаем с визой, страховкой, трансфером и другими деталями.</div></div>
+    <div class="fq"><div class="q">Что такое горящий тур?</div><div class="a">Тур с близкой датой вылета по сниженной цене. Подпишитесь — пришлём подходящие.</div></div>
+  </div>
+</div>
+
+<div class="ctaband">
+  <div><h2>Поможем подобрать тур бесплатно</h2><p>Оставьте заявку — менеджер свяжется и пришлёт лучшие варианты под ваш запрос.</p></div>
+  <div class="form"><div class="fld">Ваше имя</div><div class="fld">Телефон</div><div class="fld">Куда хотите поехать?</div><div class="sub">Подобрать тур</div><div class="cons">☑ Согласен на обработку персональных данных · Политика конфиденциальности</div></div>
+</div>
+
+<div class="pad"><div class="sh"><h2>Контакты</h2></div>
+  <div class="contacts">
+    <div class="cinfo">
+      <div><span class="lbl">Адрес</span><br>ТЦ «Берёзка», пав. 113, Новокузнецк</div>
+      <div><span class="lbl">Часы работы</span><br><span class="ph">Пн–Сб 10:00–19:00 (уточнить)</span></div>
+      <div><span class="lbl">Телефон</span><br>8-917-877-36-58 · 388-707</div>
+      <div><span class="lbl">Мессенджеры</span><br><span class="chip wa">WhatsApp</span> <span class="chip tg">Telegram</span> <span class="chip vb">Viber</span></div>
+      <div><span class="lbl">Соцсети</span><br>VK: voyagetravelnk · Instagram: voyagetravelnk</div>
+    </div>
+    <div class="map">🗺️ Яндекс.Карта — ТЦ «Берёзка», пав. 113</div>
+  </div>
+</div>
+
+<footer>
+  <div class="row">
+    <div><div class="brand">✈ Voyage Travel</div><div style="margin-top:8px;color:#b79aa6">Турагентство в Новокузнецке · подбор и оформление туров</div></div>
+    <div>8-917-877-36-58 · 388-707<br>ТЦ «Берёзка», пав. 113<br><a>WhatsApp</a> · <a>Telegram</a> · <a>VK</a></div>
+  </div>
+  <div class="legal"><span class="ph">ИП/ООО Наименование</span> · ИНН <span class="ph">…</span> · ОГРН/ОГРНИП <span class="ph">…</span> · В реестре турагентов (ЕФРТ) № <span class="ph">…</span><br>Работаем с туроператорами с финансовыми гарантиями. © 2026 Voyage Travel · <a>Политика конфиденциальности</a> · <a>Согласие на обработку ПДн</a></div>
+</footer>
+
+</body></html>
