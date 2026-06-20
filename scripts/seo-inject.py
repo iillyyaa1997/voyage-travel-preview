@@ -22,7 +22,7 @@ def og_title_desc(fn):
     return None
 
 JSONLD = '''<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TravelAgency","name":"Анекс Тур Нижнекамск","image":"%s","url":"%s/","telephone":"+7 917 878-37-58","priceRange":"₽₽","address":{"@type":"PostalAddress","streetAddress":"ул. Шинников, 42, ТЦ Панорама, 1 этаж","addressLocality":"Нижнекамск","addressCountry":"RU"},"openingHours":"Mo-Su 10:00-19:00","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"21"},"sameAs":["https://vk.com/anexnk","https://yandex.ru/maps/org/anex/166654221318/","https://2gis.ru/nizhnekamsk/firm/70000001036243323"]}
+{"@context":"https://schema.org","@type":"TravelAgency","name":"Анекс Тур Нижнекамск","image":"%s","url":"%s/","telephone":"+7 917 878-37-58","priceRange":"₽₽","address":{"@type":"PostalAddress","streetAddress":"ул. Шинников, 42, ТЦ Панорама, 1 этаж","addressLocality":"Нижнекамск","addressCountry":"RU"},"openingHours":"Mo-Su 10:00-19:00","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"24"},"sameAs":["https://vk.com/anexnk","https://yandex.ru/maps/org/anex/166654221318/","https://2gis.ru/nizhnekamsk/firm/70000001036243323"]}
 </script>'''  % (OG_IMG, BASE)
 
 def head_block(fn, title, desc):
