@@ -1,0 +1,1 @@
+{ "name": "voyage-ci", "private": true, "dependencies": { "puppeteer": "^24.0.0" } }
