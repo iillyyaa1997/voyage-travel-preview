@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://iillyyaa1997.github.io/voyage-travel-preview/sitemap.xml
