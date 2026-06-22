@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-const CHROME = null;
+
 const DIR = process.argv[2] || require('path').resolve(__dirname, '..');
 const WIDTHS = [390, 768, 1440];
 const files = fs.readdirSync(DIR).filter(f => f.endsWith('.html')).sort();
@@ -35,6 +35,19 @@ function checkNesting(html) {
   return errs.slice(0, 6);
 }
 
+
+function checkDeadCta(html){
+  const errs=[];
+  // <button> with no onclick/type=submit (static site → does nothing)
+  (html.match(/<button(?![^>]*onclick)[^>]*>/gi)||[]).forEach(m=>errs.push('dead <button> (no link/onclick): '+m.slice(0,60)));
+  // CTA-styled divs that look like buttons but aren't <a>
+  ['btn1','btn2','qcta','sub','b2'].forEach(c=>{
+    const re=new RegExp('<div class="'+c+'"[^>]*>','g'); let m;
+    while((m=re.exec(html))) errs.push('CTA <div class="'+c+'"> is not a link (<a>) → click does nothing');
+  });
+  return errs.slice(0,8);
+}
+
 const probe = (innerW) => {
   const docW = document.documentElement.scrollWidth;
   const overflow = docW - innerW;
@@ -62,7 +75,10 @@ const probe = (innerW) => {
   let problems = 0;
   for (const f of files) {
     const url = 'file://' + path.join(DIR, f);
-    const nestErrs = checkNesting(fs.readFileSync(path.join(DIR, f), 'utf8'));
+    const _html = fs.readFileSync(path.join(DIR, f), 'utf8');
+    const nestErrs = checkNesting(_html);
+    const ctaErrs = checkDeadCta(_html);
+    if (ctaErrs.length){ problems++; console.log(`\n✗ ${f}  DEAD CTA:`); ctaErrs.forEach(e=>console.log('    → '+e)); }
     if (nestErrs.length) {
       problems++;
       console.log(`\n✗ ${f}  HTML NESTING:`);
