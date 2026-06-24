@@ -67,7 +67,18 @@ const probe = (innerW) => {
     offenders.sort((a, b) => b.right - a.right);
   }
   const broken = [...document.images].filter(im => !im.complete || im.naturalWidth === 0).map(im => im.getAttribute('src'));
-  return { docW, innerW, overflow, offenders: offenders.slice(0, 6), broken };
+  // vertical overlap of top-level stacked blocks (catches negative-margin "наезд")
+  const sig = el => el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '');
+  const blocks = [...document.body.children].filter(el => {
+    const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
+    return r.height > 20 && cs.position !== 'absolute' && cs.position !== 'fixed' && el.tagName !== 'STYLE' && el.tagName !== 'SCRIPT';
+  }).map(el => ({ el, r: el.getBoundingClientRect() })).sort((a, b) => a.r.top - b.r.top);
+  const overlaps = [];
+  for (let i = 1; i < blocks.length; i++) {
+    const ov = Math.round(blocks[i - 1].r.bottom - blocks[i].r.top);
+    if (ov > 8) overlaps.push(`${sig(blocks[i-1].el)} ↕ ${sig(blocks[i].el)} overlap ${ov}px`);
+  }
+  return { docW, innerW, overflow, offenders: offenders.slice(0, 6), broken, overlaps: overlaps.slice(0, 5) };
 };
 
 (async () => {
@@ -95,6 +106,7 @@ const probe = (innerW) => {
       if (res.overflow > 1) flags.push(`OVERFLOW +${res.overflow}px (doc ${res.docW} > vp ${w})`);
       const realBroken = res.broken.filter(s => s && !/^https?:/.test(s)); // ignore external (sandbox) imgs
       if (realBroken.length) flags.push(`BROKEN IMG: ${realBroken.join(', ')}`);
+      if (res.overlaps && res.overlaps.length) flags.push(`OVERLAP: ${res.overlaps.join(' ; ')}`);
       if (flags.length) {
         problems++;
         console.log(`\n✗ ${f} @${w}px  ${flags.join(' | ')}`);
